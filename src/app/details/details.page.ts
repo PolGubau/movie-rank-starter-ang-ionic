@@ -1,23 +1,33 @@
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import {
   Component,
   Input,
-  OnInit,
   WritableSignal,
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {
   IonContent,
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonButtons,
+  IonBackButton,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardContent,
+  IonText,
+  IonLabel,
+  IonItem,
+  IonIcon,
 } from '@ionic/angular/standalone';
-import { MovieService } from '../services/movie.service';
-import { MovieResult } from '../services/interfaces';
 import { addIcons } from 'ionicons';
-import { closeCircleOutline, calendar } from 'ionicons/icons';
+import { calendarOutline, cashOutline } from 'ionicons/icons';
+import { MovieDetails } from '../services/interfaces';
+import { MovieService } from '../services/movie.service';
 @Component({
   selector: 'app-details',
   templateUrl: './details.page.html',
@@ -32,18 +42,31 @@ import { closeCircleOutline, calendar } from 'ionicons/icons';
     FormsModule,
     DatePipe,
     CurrencyPipe,
+    IonButtons,
+    IonBackButton,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonCardContent,
+    IonText,
+    IonLabel,
+    IonItem,
+    IonLabel,
+    IonIcon,
   ],
 })
 export class DetailsPage {
   private movieService = inject(MovieService);
   public imageBaseUrl = 'https://image.tmdb.org/t/p';
-  public movie: WritableSignal<MovieResult | null> = signal(null);
+  public movie: WritableSignal<MovieDetails | null> = signal(null);
   public error: WritableSignal<string | null> = signal(null);
 
   @Input()
   set id(movieId: string) {
     this.movieService.getMovieDetails(movieId).subscribe(
       (movie) => {
+        console.log(movie);
         this.movie.set(movie);
       },
       (error) => {
@@ -53,6 +76,6 @@ export class DetailsPage {
   }
 
   constructor() {
-    addIcons({ closeCircleOutline, calendar });
+    addIcons({ calendarOutline, cashOutline });
   }
 }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { delay, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ApiResult, MovieResult } from './interfaces';
+import { ApiResult, MovieDetails, MovieResult } from './interfaces';
 
 const API_KEY = environment.apiKey;
 const BASE_URL = 'https://api.themoviedb.org/3';
@@ -21,7 +21,7 @@ export class MovieService {
     );
     // .pipe(delay(1000));
   }
-  getMovieDetails(id: string): Observable<MovieResult> {
-    return this.http.get<MovieResult>(`${MOVIE_URL}/${id}?api_key=${API_KEY}`);
+  getMovieDetails(id: string): Observable<MovieDetails> {
+    return this.http.get<MovieDetails>(`${MOVIE_URL}/${id}?api_key=${API_KEY}`);
   }
 }
