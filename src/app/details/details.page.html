@@ -1,13 +1,19 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>details</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{movie()?.title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">details</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  @if (movie(); as movie) {
+  <ion-card>
+    <div
+      [style.heigt.px]="300"
+      [style.backgorund-image]="'url(' + movie.poster + ')'"
+    ></div>
+  </ion-card>
+  }
 </ion-content>

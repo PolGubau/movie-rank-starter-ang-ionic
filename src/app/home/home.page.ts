@@ -1,20 +1,25 @@
+import { DatePipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
   InfiniteScrollCustomEvent,
-  IonList,
-  IonItem,
-  IonAvatar,
-  IonSkeletonText,
   IonAlert,
+  IonAvatar,
+  IonContent,
+  IonHeader,
+  IonItem,
   IonLabel,
+  IonList,
+  IonSkeletonText,
+  IonTitle,
+  IonToolbar,
+  IonBadge,
+  IonInfiniteScroll,
+  IonInfiniteScrollContent,
 } from '@ionic/angular/standalone';
-import { MovieService } from '../services/movie.service';
 import { catchError, finalize } from 'rxjs';
 import { MovieResult } from '../services/interfaces';
+import { MovieService } from '../services/movie.service';
 
 @Component({
   selector: 'app-home',
@@ -32,6 +37,11 @@ import { MovieResult } from '../services/interfaces';
     IonSkeletonText,
     IonAlert,
     IonLabel,
+    DatePipe,
+    RouterModule,
+    IonBadge,
+    IonInfiniteScroll,
+    IonInfiniteScrollContent,
   ],
 })
 export class HomePage {
@@ -78,5 +88,8 @@ export class HomePage {
         },
       });
   }
-  loadMore(event: InfiniteScrollCustomEvent) {}
+  loadMore(event: InfiniteScrollCustomEvent) {
+    this.currentPage++;
+    this.loadMovies(event);
+  }
 }
